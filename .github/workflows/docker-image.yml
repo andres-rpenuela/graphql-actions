@@ -56,12 +56,16 @@ jobs:
         echo "${DOCKER_PWD}" | docker login -u "${DOCKER_USER}" --password-stdin
         echo "New version: $NEW_VERSION !!!!!"
     # Generar la imagen
-    # - name: Build Docker image
-    #   run: |
-    #     docker build -t ${{ secrets.DOCKER_USERNAME }}/graphql-actions:1.0.0 .
-    #     docker build -t ${{ secrets.DOCKER_USERNAME }}/graphql-actions:latest .
-    # # Subir imange
-    # - name: Push Docker image
-    #   run: |
-    #     docker push ${{ secrets.DOCKER_USERNAME }}/graphql-actions:1.0.0
-    #     docker push ${{ secrets.DOCKER_USERNAME }}/graphql-actions:latest
+    - name: Build Docker image
+      env:
+        NEW_VERSION: ${{ steps.version.outputs.version }}
+      run: |
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/graphql-actions:$NEW_VERSION .
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/graphql-actions:latest .
+    # Subir imange
+    - name: Push Docker image
+      env:
+        NEW_VERSION: ${{ steps.version.outputs.version }}
+      run: |
+        docker push ${{ secrets.DOCKER_USERNAME }}/graphql-actions:$NEW_VERSION
+        docker push ${{ secrets.DOCKER_USERNAME }}/graphql-actions:latest
