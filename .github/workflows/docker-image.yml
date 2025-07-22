@@ -26,6 +26,10 @@ jobs:
       run: |
         echo "${DOCKER_PWD}" | docker login -u "${DOCKER_USER}" --password-stdin
 
-    # Generar la imagne
-   # - name: Build the Docker image
-   #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    # Generar la imagen
+    # - name: Build Docker image
+    #   run: docker build -t ${{ secrets.DOCKER_USERNAME }}/graphql-actions:1.0.0 .
+
+    # Subir imange
+    # - name: Push Docker image
+    #   run: docker push ${{ secrets.DOCKER_USERNAME }}/graphql-actions:1.0.0
