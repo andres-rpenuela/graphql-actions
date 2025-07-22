@@ -30,7 +30,18 @@ jobs:
         format: "${major}.${minor}.${patch}-prerelease${increment}"
       # id del setp para acceder desde otros steps
       id: version
-      
+    # Uso de un usuario de github
+    - name: Set up Git user
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+    # Crear un tag y lo asocia 
+    - name: Create and push Git tag
+      run: |
+        TAG="v${{ steps.version.outputs.version }}"
+        echo "Nuevo tag: $TAG"
+        git tag $TAG
+        git push origin $TAG
     # Hacer login a docker hub
     - name: Docker login
       env:
