@@ -26,6 +26,7 @@ jobs:
       run: |
         echo "Iniciando login"
         echo "${DOCKER_PWD}" | docker login -u "${DOCKER_USER}" --password-stdin
+        
     # docker login -u colera -p 
     # echo "${DOCKER_PWD}" | docker login -u "${DOCKER_USER}" --password-stdin
     # Generar la imagen
