@@ -37,11 +37,11 @@ jobs:
         DOCKER_USER: ${{secrets.DOCKER_USERNAME}}
         DOCKER_PWD: ${{secrets.DOCKER_PASSWORD}}
         # accede al estep con id "version", y obtiente la variable la variable de salidad version con "output.version"
-        NEW_VERSION: ${{ steps.version.output.version }}
+        NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
         echo "Iniciando login"
         echo "${DOCKER_PWD}" | docker login -u "${DOCKER_USER}" --password-stdin
-        echo "New version: ${{ steps.version.output.version }} !!!!!"
+        echo "New version: $NEW_VERSION !!!!!"
     # # Generar la imagen
     # - name: Build Docker image
     #   run: |
