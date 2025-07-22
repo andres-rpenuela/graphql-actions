@@ -42,7 +42,7 @@ jobs:
         echo "Iniciando login"
         echo "${DOCKER_PWD}" | docker login -u "${DOCKER_USER}" --password-stdin
         echo "New version: $NEW_VERSION !!!!!"
-    # # Generar la imagen
+    # Generar la imagen
     # - name: Build Docker image
     #   run: |
     #     docker build -t ${{ secrets.DOCKER_USERNAME }}/graphql-actions:1.0.0 .
