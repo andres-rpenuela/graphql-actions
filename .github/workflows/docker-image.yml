@@ -41,7 +41,7 @@ jobs:
       run: |
         echo "Iniciando login"
         echo "${DOCKER_PWD}" | docker login -u "${DOCKER_USER}" --password-stdin
-        echo "New version: ${NEW_VERSION}!!!!!"
+        echo "New version: ${{ steps.version.output.version }} !!!!!"
     # # Generar la imagen
     # - name: Build Docker image
     #   run: |
