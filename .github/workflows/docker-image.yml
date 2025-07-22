@@ -24,7 +24,7 @@ jobs:
         DOCKER_USER: ${{secrets.DOCKER_USERNAME}}
         DOCKER_PWD: ${{secrets.DOCKER_PASSWORD}}
       run: |
-        echo "Iniciando login
+        echo "Iniciando login"
         echo "${DOCKER_PWD}" | docker login -u "${DOCKER_USER}" --password-stdin
     # docker login -u colera -p 
     # echo "${DOCKER_PWD}" | docker login -u "${DOCKER_USER}" --password-stdin
