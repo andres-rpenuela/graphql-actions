@@ -31,6 +31,8 @@ jobs:
       # id del setp para acceder desde otros steps
       id: version
     # Uso de un usuario de github
+    # Dar permitso por token o por Settings → Actions → General → Workflow permissions
+    # y marca "Read and write permissions"
     - name: Set up Git user
       run: |
         git config user.name "github-actions[bot]"
