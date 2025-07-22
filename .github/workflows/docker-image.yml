@@ -24,8 +24,8 @@ jobs:
         DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PWD: ${{ secrets.DOCKER_PASSWORD }}
       run: |
-        echo $DOCKER_USER
-        echo "${DOCKER_PWD}" | docker login -u "${DOCKER_USER}" --password-stdin
+        echo $DOCKER_USER  
+    # echo "${DOCKER_PWD}" | docker login -u "${DOCKER_USER}" --password-stdin
     # Generar la imagen
     # - name: Build Docker image
     #   run: docker build -t ${{ secrets.DOCKER_USERNAME }}/graphql-actions:1.0.0 .
