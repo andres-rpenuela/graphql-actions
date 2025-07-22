@@ -18,20 +18,37 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
+    # Gestion de la version automatica
+    - name: Git Semantic Version
+      uses: PaulHatch/semantic-version@v4.0.3
+      with:
+        # si en el comit esta "major:" indica que es una version mayor 
+        major_pattern: "major:"
+        # si en el comit esta "feat:" indica que es una version menor
+        minor_pattern: "feat:"
+        # formato del version deuvelto
+        format: "${major}.${minor}.${patch}-prerelease${increment}"
+      # id del setp para acceder desde otros steps
+      id: version
+      
     # Hacer login a docker hub
     - name: Docker login
       env:
         DOCKER_USER: ${{secrets.DOCKER_USERNAME}}
         DOCKER_PWD: ${{secrets.DOCKER_PASSWORD}}
+        # accede al estep con id "version", y obtiente la variable la variable de salidad version con "output.version"
+        NEW_VERSION: ${{ steps.version.output.version }}
       run: |
         echo "Iniciando login"
         echo "${DOCKER_PWD}" | docker login -u "${DOCKER_USER}" --password-stdin
-        
-    # docker login -u colera -p 
-    # echo "${DOCKER_PWD}" | docker login -u "${DOCKER_USER}" --password-stdin
-    # Generar la imagen
+        eco "New version: $NEW_VERSION!!!!!"
+    # # Generar la imagen
     # - name: Build Docker image
-    #   run: docker build -t ${{ secrets.DOCKER_USERNAME }}/graphql-actions:1.0.0 .
-    # Subir imange
+    #   run: |
+    #     docker build -t ${{ secrets.DOCKER_USERNAME }}/graphql-actions:1.0.0 .
+    #     docker build -t ${{ secrets.DOCKER_USERNAME }}/graphql-actions:latest .
+    # # Subir imange
     # - name: Push Docker image
-    #   run: docker push ${{ secrets.DOCKER_USERNAME }}/graphql-actions:1.0.0
+    #   run: |
+    #     docker push ${{ secrets.DOCKER_USERNAME }}/graphql-actions:1.0.0
+    #     docker push ${{ secrets.DOCKER_USERNAME }}/graphql-actions:latest
